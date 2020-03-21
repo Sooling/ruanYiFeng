@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			
+			function Animal(sex,foot){
+				this.sex = sex;
+				this.foot = foot;
+			};
+			Animal.prototype.species = "animal";
+			Animal.prototype.eat = function(){
+				console.log("eat "+this.foot);
+			}
+			
+			/* 一级继承 */
+			function Cat(name,color){
+				this.name = name;
+				this.color = color;
+			};
+			
+			
+			/* 二级继承 */
+			function Tomcat(cloth){
+				this.cloth = cloth;
+			};
+		
+			/* 一级实例 */					
+			Cat.prototype = new Animal("man","fruit");
+			Cat.prototype.constructor = Cat;
+			var cat1 = new Cat("huahua","blue");
+			console.log(Cat.prototype.sex);//man
+			Cat.prototype.sex = "男";
+			
+			/* 二级实例化 */
+			Tomcat.prototype = new Cat("Tom","yellow");
+			Tomcat.prototype.constructor = Cat;
+			var tomcat1 = new Tomcat("T-shirt");
+			
+			console.log( tomcat1 instanceof Tomcat );
+			
+			
+			
+			console.log(cat1.species);//animal
+			console.log(cat1.sex);/* 此时的sex是公有的，需要做出修改 */
+			//男
+			
+			
+			cat1.eat();
+			
+			console.log(tomcat1.species);
+			console.log(tomcat1.name);
+			console.log(tomcat1.sex);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

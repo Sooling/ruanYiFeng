@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* 全局环境中的this，指的是window对象 */
+			var x = 1;
+			x++;
+			console.log(this.x);
+			var name = "window";
+			/* 构造函数中的this ，指的是实例化的对象*/
+			var Cat = function(){
+				this.name = "huahua";
+				this.sayName = function(){
+					console.log(this.name);
+				}
+			};
+			
+			var myCat = new Cat();
+			console.log(myCat.name);
+			myCat.sayName.apply(myCat);
+			
+			
+			
+			/* 在对象中this，指该对象 */
+			var Dog = {
+				name: "Jhon",
+				x: "letter x",
+				sayName: function(){
+					console.log("my name is "+this.x);
+				}
+			};
+			
+			Dog.sayName.apply();
+			
+			
+			
+			
+			
+			/* apply()方法调用，可以改变this的指代 */
+			var Person = {
+				name: "guohui",
+				x: "letter x",
+				sayName: function(){
+					console.log("my name is "+this.x);
+				}
+			};
+			
+			/* apply()方法参数为空，则sayName中函数里的this指window对象 */
+			Dog.sayName.apply();
+			
+			/* apply()方法有参数，则sayName中函数里的this指参数对象 */
+			Dog.sayName.apply(Person);
+		</script>
+	</body>
+</html>

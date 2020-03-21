@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<div>
+			<h3 title="first h3"></h3>
+			<h3></h3>
+			<h3></h3>
+			<form action="">
+				<input type="text" name="" id="" value="这是一个输入框" />
+			</form>
+		</div>
+		<script src="jq/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript">
+			var oH3 = document.getElementsByTagName("h3");
+			var $h3 = $("h3");
+			var aH3 = $h3.get();
+			
+			var $div = $("div");
+			
+			console.log(aH3);
+			console.log(oH3);
+			console.log($h3);
+			
+			/* div.style.backgroundColor = "#f30"; */
+			
+			$div.find("h3").eq(2).html("hello world!").end().eq(0).html("你好！");
+			$div.find("h3").eq(1).text("阿西吧");
+			
+			/* 取出或设置属性值 */
+			console.log($div.find("h3").eq(0).attr("title"));
+			$div.find("h3").eq(0).attr("title","第一个h3元素");
+			console.log($div.find("h3").eq(0).attr("title"));
+			
+			/* 取出或设置表单元素的值 */
+			$input = $("input");
+			console.log($input.val());
+			$input.val("this is a box");
+			console.log($input.val());
+			
+			/* 赋值赋所有，取值取一瓢（.text()除外） */
+			console.log($div.find("h3").text());
+			
+			/* 克隆一个元素 */
+			$clone = $div.find("h3").eq(2).clone();
+			/* 把克隆的元素添加到div元素内部的前面 */
+			$div.prepend($clone);
+		</script>
+	</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			//一.构造函数法
+			//二.Object.create()法
+			var cat = {
+				name: "huahua",
+				foot: "fish",
+				eat: function(){
+					console.log("eat "+this.foot)
+				}
+			};
+			
+			var cat1 = Object.create(cat);
+			var cat2 = Object.create(cat);
+			cat2.foot = "鱼";
+			cat1.eat();
+			/* 这种方法比"构造函数法"简单，但是不能实现私有属性和私有方法，
+			实例对象之间也不能共享数据，对"类"的模拟不够全面。 */
+			
+			//.极简主义法
+			var COLOR = {
+				creatNew: function(){
+					var color = {};
+					color.style = "black";
+					return color;
+				}
+			};
+			
+			var ANIMAL = {
+				kind: "animal",
+				creatNew: function(){
+					var animal = COLOR.creatNew(); //继承
+					var sound = "miao...";
+					animal.changeSound = function(s){sound = s};
+					animal.showSound = function(){console.log(sound)};
+					animal.name = "huahua";
+					animal.age = 21;					
+					return animal;
+				}
+			};			
+
+			var dog = ANIMAL.creatNew();
+			var fox = ANIMAL.creatNew();
+			dog.name = "lisi";
+			console.log(dog.name);
+			console.log(fox.name);
+			
+			ANIMAL.kind = "Animal";
+			console.log(ANIMAL.kind);
+			
+			console.log("继承之后" + dog.color);
+			
+			/* 私有属性和方法 */
+			dog.changeSound("wang...");
+			dog.showSound();
+			
+			fox.showSound();
+			//私有属性和方法,无法从外部改变,只能通过对象的公有方法改变.
+			//一个对象的私有属性发生改变,另一个对象的私有属性仍然是原来的值;
+			
+		</script>
+	</body>
+</html>

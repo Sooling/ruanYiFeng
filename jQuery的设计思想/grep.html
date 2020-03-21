@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="jq/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div></div>
+		<p></p>
+		<span></span>
+		 
+		<script>
+		var arr = [ 1, 9, 3, 8, 6, 1, 5, 9, 4, 7, 3, 8, 6, 9, 1 ];
+		$("div").text(arr.join(", "));
+		 
+		arr = jQuery.grep(arr, function(n, i){
+		  return (n != 5 && i > 4);
+		});
+		$("p").text(arr.join(", "));
+		 
+		arr = jQuery.grep(arr, function (a) { return a != 9; });
+		$("span").text(arr.join(", "));
+		</script>
+	</body>
+</html>

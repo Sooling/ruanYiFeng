@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			function Animal( sex , foot ){
+				this.sex = sex;
+				this.foot = foot;
+			};
+			//Animal.prototype.species = "动物";
+			//Animal.prototype.constructor = Animal;//自定义constructor属性
+			Animal.prototype.species = "animal";
+			Animal.prototype.eat = function(){
+				console.log("eat "+this.foot);
+			}//以上Animal的公有属性和方法
+			
+			function Cat(name,color){
+				Animal.apply( this , ["man","fish"]);//继承Animal的私有变量
+				this.name = name;
+				this.color = color;
+				this.sex = "男";//测试同名属性
+			};
+			
+			function extend( child , parent ){//继承公有方法(继承prototype)
+				var F = function (){};
+				F.prototype = parent.prototype;
+				child.prototype = new F();
+				child.prototype.constructor = child;
+			}
+			
+			extend( Cat , Animal );
+			//var f = function(){};
+			//f.prototype = Animal.prototype;
+			//Cat.prototype = new f();
+			//console.log(Cat.prototype.constructor); //输出Animal;
+			//Cat.prototype.constructor = Cat;
+			var cat1 = new Cat("xiaohei","black");
+			/* 此时实例化对象只有Cat的私有属性和方法以及Animal的公有属性和方法 */
+			console.log(cat1.sex);//测试构造函数 继承 构造函数中同名属性的情况
+			//输出"男"
+			//说明优先访问子构造函数中的,父构造函数中的被忽略
+			
+			console.log(cat1.name);//子函数的私有属性
+			console.log( cat1.species );//父函数的公有属性
+			cat1.eat();//父函数的公有方法
+			
+			//该extend方法的缺陷:子函数的公有属性必须在继承之后添加,如果在继承之前添加会被重写覆盖.
+			//那如何改进呢？
+			//使用拷贝继承
+			function Dog(){//定义Dog构造函数
+				this.name = "dog";
+			};
+			Dog.prototype.sound = function(){//在继承之前添加sound方法
+				console.log( "汪汪汪" );
+			};
+			
+			function copyExtend( child , parent ){
+				var c = child.prototype;
+				var p = parent.prototype;
+				
+				for( var i in p ){
+					
+					console.log( p );
+					//输出parent.prototype中的属性
+					//parent.prototype有constructor属性
+					console.log( p [i] );
+					//可是parent.prototype[i]却没有
+					//why？
+					//结论只有一个：使用for in循环prototype对象时,constructor属性被自动忽略!
+					//除非自定义constructor属性
+					
+					c[i] = p[i];
+				};
+				/* c.constructor = p.constructor; */
+				
+				//console.log( c );
+				console.log( c.constructor );
+				//应该会输出Animal;
+				//结果却是function Dog？
+			};
+			
+			copyExtend( Dog , Animal );//执行继承
+			
+			//判断是否实现继承
+			var dog1 = new Dog();
+			dog1.sound();
+			console.log( dog1.species );
+			
+			/* 如何让实例化对象同时也拥有私有属性和方法呢？
+			即在Cat构造函数内部使用apply方法调用Animal */
+			
+			/* 两个构造函数之间的继承，要注意公私分开！ */
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

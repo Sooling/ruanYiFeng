@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			//对象字面量的继承
+			
+			var Chinese = {
+				nation: "中国",
+				place: ["北京","河南","上海"]
+				/* ,
+				eat: function(){
+					console.log(this.nation);
+				} */
+			};
+			
+			function object(o){
+				var f = function(){};
+				f.prototype = o;
+				
+				return new f();
+			};
+			
+			var Doctor = object(Chinese);
+			Doctor.career = "医生";
+			console.log(Doctor.nation);
+			/* Doctor.eat(); */
+			
+			/* 浅拷贝 */
+			function extendCopy(p){
+				var c = {};
+				
+				for(var i in p){
+					c[i] = p[i];
+				};
+				
+				return c;
+			};
+			
+			var Farmer = extendCopy(Chinese);
+			Farmer.name = "farmer";
+			Farmer.nation = "德国";
+			Farmer.place.push("广州");
+			console.log(Farmer.nation+Farmer.name);
+			console.log(Chinese.nation);
+			
+			console.log(Farmer.place);
+			console.log(Chinese.place);
+			/* 这样的拷贝有一个问题。那就是，如果父对象的属性等于数组或另一个对象，
+			那么实际上，子对象获得的只是一个内存地址，而不是真正拷贝，
+			因此存在父对象被篡改的可能。 */
+			
+			/* 深拷贝 */
+			function deepCopy(p,c){
+				var c = null;
+				
+				if( p.constructor === Array ){
+					c = c || [];
+				}else{
+					c = c || {};			
+				};
+				
+				//var c = c || {};
+				for(var i in p){//for in循环也可用于array,其实数组本身也是对象字面量
+					if(typeof p[i] === "object"){
+						c[i] = (p[i].constructor === Array) ? [] : {};
+						deepCopy(p[i],c[i]);
+					}else{
+						c[i] = p[i];
+					};
+				};
+				return c;
+			};
+			
+			var Worker = deepCopy(Chinese);
+			Worker.place.push("重庆");
+			console.log(Worker.nation);
+			console.log(Worker.place);
+			console.log(Chinese.place);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

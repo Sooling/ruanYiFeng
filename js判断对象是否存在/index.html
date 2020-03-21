@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			if(typeof a === "undefined"){
+				/* var a; */
+			};
+			/* console.log(a); */
+			
+			/* var obj = {
+				name: "guohui",
+				eat: function(){
+					if(!this.myObj){
+						this.myObj = {};
+						console.log(this.name);
+					};
+				}
+			};
+			
+			obj.eat(); */
+			
+			if(typeof myObj === "undefined"){
+				/* var myObj = {}; */
+				console.log("run");
+			};
+			
+			var global = this;
+			if(!global.Obj){
+				global.Obj = {};
+				console.log("run Obj");
+			};
+			Obj.name = "李四";
+			console.log(Obj.name);
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

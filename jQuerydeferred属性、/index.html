@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="jq/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<script type="text/javascript">
+			/* $.ajax({
+				url:"text.html",
+				data:{
+					
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(data){
+					console.log("success");
+				},
+				error:function(xhr,type,errorThrown){
+					console.log("error");
+				}
+			}); */
+			
+			/* $.ajax("text.html")
+			.done(function(){console.log("成功");})
+			.fail(function(){console.log("失败");})
+			.done(function(){console.log("第二个成功")}); */
+			
+			var dfd = $.Deferred();
+			
+			var wait = function(){
+				
+				var tasks = function(){
+					console.log("执行完毕");
+					dfd.reject();
+				};
+				
+				setTimeout(tasks,2000);
+				
+				return dfd.promise();
+			};
+			var d = wait();
+			
+			$.when(d)
+			.done(function(){console.log("success");})
+			.fail(function(){console.log("error")});
+			
+			d.resolve();//该行报错,因为d不存在resolve方法;
+			console.log("继续执行");//报错前的代码会执行,报错后的代码不执行,所以改行不输出;
+			
+		</script>
+	</body>
+</html>

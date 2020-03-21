@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			/*生成实例对象的原始方式*/
+			/* var Cat = {
+				name: '',
+				color: ''
+			};
+			
+			var cat1 = {};
+			cat1.name = 'huahua';
+			cat1.color = 'blue';
+			
+			var cat2 = {};
+			cat2.name = 'guohui';
+			cat2.color = 'black'; */
+			
+			/* 原始模式的改进 */
+			function Cat(name,color){
+				return{
+					name: name,
+					color: color
+				};
+			};
+			
+			var cat1 = Cat("huahua","blue");
+			var cat2 = Cat("guohui","black");
+			
+			/* 构造函数模式 */
+			function Dog(name,color){
+				this.name = name;
+				this.color = color;
+			};
+			
+			var dog1 = new Dog("huahua","blue");
+			var dog2 = new Dog("xiaobai","white");
+			console.log(dog1.name);
+			console.log(dog1.constructor === Dog);/* dog1的实例化原型是Dog */
+			console.log(dog1 instanceof Dog);
+			/* constructor 源头的意思；instanceof 运算符，关键字 */
+			
+			/* 构造函数模式的改进——内存问题 */
+			function Fox(name,color){
+				this.name = name;
+				this.color = color;
+				this.eat = function(foot){
+					console.log("eating fox's "+foot);
+				};
+			};
+			
+			var fox1 = new Fox("fox1","blue");
+			var fox2 = new Fox("fox2","white");
+			console.log(fox1.name);
+			fox1.eat("fruit");
+			fox2.eat("apple");
+			
+			/* prototype模式 */
+			function Cattle(name,color){
+				this.name = name;
+				this.color = color;
+			};
+			Cattle.prototype.eat = function(){
+				console.log("I am "+this.name+" I eat grass");
+			};
+			
+			var cattle1 = new Cattle("cattle1","blue");
+			var cattle2 = new Cattle("cattle2","white");
+			cattle1.eat();
+			cattle2.eat();
+			console.log(cattle1.eat === cattle2.eat);/* prototype中的方法和属性指向同一个内存 */
+			
+			/* 遍历实例化对象的所有属性和方法，包括从构造函数的prototype属性的对象中继承的 */
+			for(var prop in cattle1){
+				console.log("cattle1["+prop+"]="+cattle1[prop]);
+			};
+		</script>
+	</head>
+	<body>
+	</body>
+</html>

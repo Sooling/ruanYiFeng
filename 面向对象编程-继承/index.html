@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script type="text/javascript">
+			
+			function Animal(sex){
+				this.sex = sex;
+			};
+			Animal.prototype.species = "动物";
+			/* 第一种方法：apply()方法继承：本质上是修改父构造函数中的this */
+			function Cat(name,color){
+				Animal.apply(this,["man"]);
+				this.name = name;
+				this.color = color;
+			};
+			function Dog(name,color){
+				Animal.apply(this,["women"]);
+				this.name = name;
+				this.color = color;
+			};
+			/* Animal.apply(Cat); */
+			
+			/* var cat1 = new Cat("huahua","blue");
+			Animal.apply(cat1,["动物"]);
+			console.log(cat1.species); */
+			
+			/* 第二种方法：prototype模式 */
+			Cat.prototype = new Animal();
+			Cat.prototype.constructor = Cat;
+			var cat1 = new Cat("huahua","blue");
+			
+			Dog.prototype = new Animal();
+			Dog.prototype.constructor = Dog;
+			var dog1 = new Dog("xiaohei","black");
+			console.log(cat1.species);
+			console.log(cat1.sex);
+			console.log(dog1.sex);
+			
+		</script>
+	</head>
+	<body>
+	</body>
+</html>
